@@ -1,0 +1,46 @@
+---
+- name: Download Python-pip
+  ansible.builtin.shell: apt update && apt install -y python3-pip
+  become: true
+
+- name: Download OBU from github
+  ansible.builtin.git:
+    repo: "https://github.com/sreckcep/OBU_iot.git"
+    dest: "~/"
+
+- name: Install requirements
+  ansible.builtin.shell: pip3 install -r ~/OBU_iot/requirements.txt
+
+- name: Create systemd service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/obu.service
+    content: |
+      [Unit]
+      Description=OBU service
+      After=multi-user.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/python3 /opt/OBU_iot/main.py
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target  
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  become: true
+
+- name: Enable OBU service
+  ansible.builtin.systemd:
+    name: obu
+    enabled: yes
+  become: true
+
+- name: Start OBU service
+  ansible.builtin.systemd:
+    name: obu
+    state: started
+    enabled: yes
+  become: true

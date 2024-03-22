@@ -1,0 +1,14 @@
+---
+- name: Update network configuration
+  ansible.builtin.template:
+    src: wpa_supplicant.conf.j2
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf 
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: Reboot the Raspberry Pi
+  ansible.builtin.reboot:
+  become: true
+  ignore_errors: true

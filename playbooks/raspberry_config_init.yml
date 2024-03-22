@@ -1,0 +1,15 @@
+---
+- name: raspberry config init
+  gather_facts: false
+  hosts: 
+    - raspberry
+  tasks:
+    - name: raspberry config init
+      include_role:
+        name: raspberry
+        tasks_from: item
+      with_items:
+        - update
+        - obu_init
+        - network_config
+    

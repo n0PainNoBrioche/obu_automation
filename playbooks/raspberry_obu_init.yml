@@ -1,0 +1,11 @@
+---
+- name: raspberry config init
+  gather_facts: false
+  hosts: 
+    - raspberry
+  tasks:
+    - name: raspberry config init
+      include_role:
+        name: raspberry
+        tasks_from: obu_init
+    

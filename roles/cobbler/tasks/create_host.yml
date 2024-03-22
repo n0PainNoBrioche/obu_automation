@@ -1,0 +1,16 @@
+---
+- name: Create host in Cobbler
+  ansible.builtin.shell: >-
+    cobbler system add 
+    --name={{ hostvars['raspberry_obu_01'].inventory_hostname }} 
+    --profile={{ raspberry_profile }} 
+    --ip-address={{ hostvars['raspberry_obu_01'].ansible_host }} 
+    --mac={{ hostvars['raspberry_obu_01'].macaddress }} 
+    --hostname={{ hostvars['raspberry_obu_01'].inventory_hostname }} 
+    --dns-name={{ hostvars['raspberry_obu_01'].dns_name }} 
+    --gateway={{ hostvars['raspberry_obu_01'].gateway }} 
+    --interface={{ hostvars['raspberry_obu_01'].interface }} 
+    --netmask={{ hostvars['raspberry_obu_01'].netmask }} 
+    --static=1 
+    --name-servers={{ dns_server }} 
+    --comment="Created by Ansible"

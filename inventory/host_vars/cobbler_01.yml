@@ -1,0 +1,3 @@
+cobbler_host: "" # IP address of the Cobbler server
+cobbler_user: ""
+cobbler_password: ""
