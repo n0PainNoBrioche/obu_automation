@@ -1,0 +1,11 @@
+---
+- name: cobbler create new host
+  gather_facts: false
+  hosts: 
+    - cobbler
+  tasks:
+    - name: cobbler create new host
+      include_role:
+        name: cobbler
+        tasks_from: create_host
+    
