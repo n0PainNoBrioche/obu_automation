@@ -5,11 +5,65 @@
 
 - name: Download OBU from github
   ansible.builtin.git:
-    repo: "https://github.com/sreckcep/OBU_iot.git"
-    dest: "~/"
+    repo: "https://github.com/sreckcep/Obu_IOT_public.git"
+    dest: "/opt/OBU_iot"
 
 - name: Install requirements
-  ansible.builtin.shell: pip3 install -r ~/OBU_iot/requirements.txt
+  ansible.builtin.shell: pip3 install -r /opt/OBU_iot/requirements.txt
+
+- name: Update MQQT_HOST
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_HOST = '.*'"
+    replace: "MQTT_HOST = '{{ mqtt_host }}'"
+
+- name: Update MQTT_TOPIC
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_TOPIC = '.*'"
+    replace: "MQTT_TOPIC = '{{ mqtt_topic }}'"
+
+- name: Update MQTT_USER
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_USER = '.*'"
+    replace: "MQTT_USER = '{{ mqtt_user }}'"
+
+- name: Update MQTT_PASS
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_PASS = '.*'"
+    replace: "MQTT_PASS = '{{ mqtt_pass }}'"
+
+- name: Update MQTT_EXTERNAL_PORT
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_EXTERNAL_PORT = '.*'"
+    replace: "MQTT_EXTERNAL_PORT = '{{ mqtt_external_port }}'"
+
+- name: Update MQTT_INTERNAL_PORT
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "MQTT_INTERNAL_PORT = '.*'"
+    replace: "MQTT_INTERNAL_PORT = '{{ mqtt_internal_port }}'"
+
+- name: Update NTRIP_HOST
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "NTRIP_HOST = '.*'"
+    replace: "NTRIP_HOST = '{{ ntrip_host }}'"
+
+- name: Update NTRIP_PORT
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "NTRIP_PORT = '.*'"
+    replace: "NTRIP_PORT = '{{ ntrip_port }}'"
+
+- name: Update NTRIP_MOUNTPOINT
+  ansible.builtin.replace:
+    path: "/opt/OBU_iot/main.py"
+    regexp: "NTRIP_MOUNTPOINT = '.*'"
+    replace: "NTRIP_MOUNTPOINT = '{{ ntrip_mountpoint }}'"
 
 - name: Create systemd service
   ansible.builtin.copy:
