@@ -1,4 +1,17 @@
 ---
+# This file contains the variables that are shared between all the nodes in the inventory.
 Wifi_SSID: "" 
 Wifi_Password: ""
+
 dns_server: ""
+
+mqtt_host: ""
+mqtt_topic: ""
+mqtt_user: ""
+mqtt_pass: ""
+mqtt_external_port: ""
+mqtt_internal_port: ""
+
+ntrip_host: ""
+ntrip_port: ""
+ntrip_mountpoint: ""
